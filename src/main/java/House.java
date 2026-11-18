@@ -1,13 +1,15 @@
 import java.math.BigDecimal;
 
-public class House {
+public class House extends Asset{
 
     private String address;
     private int condition;
     private int squareFoot;
     private int lotSize;
 
-    public House(String address, int condition, int squareFoot, int lotSize) {
+
+    public House(String description, String dateAcquired, BigDecimal originalCost, String address, int condition, int squareFoot, int lotSize) {
+        super(description, dateAcquired, originalCost);
         this.address = address;
         this.condition = condition;
         this.squareFoot = squareFoot;
@@ -47,28 +49,28 @@ public class House {
     }
 
     public BigDecimal getValue(){
-        BigDecimal totalPrice = BigDecimal.ZERO;
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
         switch(condition){
             case 1 ->{
-                BigDecimal conditionCost = new BigDecimal(180.0 * squareFoot);
-                totalPrice.add(conditionCost);
+                BigDecimal conditionCost = BigDecimal.valueOf(180).multiply(BigDecimal.valueOf(squareFoot));
+                totalPrice =totalPrice.add(conditionCost);
             }
             case 2->{
-                BigDecimal conditionCost = new BigDecimal(130.0 * squareFoot);
-                totalPrice.add(conditionCost);
+                BigDecimal conditionCost = BigDecimal.valueOf(130).multiply(BigDecimal.valueOf(squareFoot));
+                totalPrice =totalPrice.add(conditionCost);
             }
             case 3->{
-                BigDecimal conditionCost = new BigDecimal(90.0 * squareFoot);
-                totalPrice.add(conditionCost);
+                BigDecimal conditionCost = BigDecimal.valueOf(90).multiply(BigDecimal.valueOf(squareFoot));
+                totalPrice =totalPrice.add(conditionCost);
             }
             case 4->{
-                BigDecimal conditionCost = new BigDecimal(80.0 * squareFoot);
-                totalPrice.add(conditionCost);
+                BigDecimal conditionCost = BigDecimal.valueOf(80).multiply(BigDecimal.valueOf(squareFoot));
+                totalPrice =totalPrice.add(conditionCost);
             }
         }
 
-        BigDecimal squareFootCost = new BigDecimal(.25 * squareFoot);
-        totalPrice.add(squareFootCost);
+        BigDecimal lotCost = BigDecimal.valueOf(0.25).multiply(BigDecimal.valueOf(lotSize));
+        totalPrice = totalPrice.add(lotCost);
 
         return totalPrice;
     }
